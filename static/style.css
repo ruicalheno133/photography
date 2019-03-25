@@ -1,0 +1,472 @@
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo');
+@import url('https://fonts.googleapis.com/css?family=Old+Standard+TT');
+@import url('https://fonts.googleapis.com/css?family=Alike');
+@import url('https://fonts.googleapis.com/css?family=Play');
+
+/* Geral */
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f9f8fd;
+  color: white;
+}
+
+body {
+  padding-top: 7%;
+}
+
+@media screen and (max-width: 992px) {
+  body {
+    padding-top: 10%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    padding-top: 15%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  body {
+    padding-top: 50%;
+  }
+}
+
+/* Landing Page */
+
+.carousel {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-item img{
+  height: 100%;
+}
+
+.intro {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  background-image: url('../images/P8060305.jpg');
+  display: table;
+  background-size: cover;
+}
+
+.intro .inner {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  max-width: none;
+}
+
+.content {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.content h1 {
+  font-family: 'Nanum Myeongjo';
+  font-size: 2em;
+  color:#f4e6cc;
+}
+
+/* Navigation bar */
+/* Self explanatory */
+
+nav {
+  background-color: #f9f8fd;
+}
+
+.navbar-nav {
+  margin-right: 2em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.navbar-nav .nav-link {
+  color: #151515;
+  text-decoration: none;
+  font-family: 'Nanum Myeongjo';
+  font-weight: bolder;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.nav-link::after {
+  content: '';
+  display: table;
+  margin: 0 auto;
+  width: 0;
+  height: 1px;
+  background: #151515;
+  color: transparent;
+  opacity: 0;
+}
+
+.landing-nav .nav-link::after {
+  content: '';
+  display: table;
+  margin: 0 auto;
+  width: 0;
+  height: 1px;
+  background: #151515;
+
+}
+
+.nav-link.active {
+  opacity: 1;
+}
+
+.nav-link.active::after {
+  content: '';
+  display: table;
+  margin: 0 auto;
+  width: 90%;
+  height: 1px;
+  background: #151515;
+  color: transparent;
+  opacity: 1;
+}
+
+.nav-link:hover:after {
+  width: 90%;
+  opacity: 1;
+  transition: all ease-out 500ms;
+}
+
+.nav-link:hover {
+  opacity: 1;
+  transition: all ease-out 600ms;
+}
+
+.landing-nav .nav-link{
+  color: white;
+}
+
+/* Navigation Bar Heading */
+/* Used for Naming */
+
+.navbar .navbar-text {
+  float: left;
+  font-family: 'Nanum Myeongjo';
+  font-size: 1.5em;
+  text-transform: capitalize;
+  color: #151515;
+  margin-left: 2em;
+  padding: 0;
+}
+
+.navbar-text a {
+  text-decoration: none;
+  color: #151515;
+}
+
+.landing-nav .navbar-text {
+  float: left;
+  font-family: 'Nanum Myeongjo';
+  font-size: 1.5em;
+  text-transform: capitalize;
+  color: white;
+  margin: 2em 1.5em 0 2em;
+  padding: 0;
+}
+
+/* Second Navbar */
+/* Used for filtering */
+
+.filter-nav {
+  background-color: white;
+  top: 6.5em;
+  padding: 0;
+  margin: 0;
+  z-index: 999;
+}
+
+.filter-nav ul{
+  margin-bottom: 1em;
+  padding: 0;
+}
+
+.filter-nav ul li{
+  margin-bottom: 1em;
+  padding: 0;
+}
+
+.filter-nav ul li a{
+  margin: 0;
+  padding: 0;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.filter-nav button {
+  margin: 2em;
+  padding: 0;
+}
+
+/* About me section */
+
+.sobre-row {
+  margin-top: 5em;
+}
+
+.col-md-7 {
+  margin-right: -3em;
+}
+
+
+.info-image {
+  width: 80%;
+  margin: 0 auto;
+}
+
+
+.contacts {
+  text-align: center;
+  padding: 0;
+  color: #151515;
+}
+
+.info-container {
+  box-shadow: inset 1px 0px white;
+}
+
+.info {
+  font-family: 'Nanum Myeongj';
+  margin: 1em auto;
+  padding: 0em 4em 0em 4em ;
+}
+
+.info p {
+  text-align: left;
+}
+
+.insta i{
+  font-size: 2em;
+  text-decoration: none;
+  padding: 1em;
+  color:#151515;
+}
+
+.mail i{
+  font-size: 2em;
+  text-decoration: none;
+  padding: 1em;
+  color:#151515;
+}
+
+.px i{
+  font-size: 2em;
+  padding: 1em;
+  color:#151515;
+}
+
+
+/* Image Gallery */
+/* Used for displaying images */
+
+.gallery-row {
+  margin: 4em;
+}
+
+.gallery-img {
+  margin: 0em auto;
+  width: 100%;
+  height: auto;
+}
+
+.filter-row {
+  margin: 2em;
+  padding: 0em;
+}
+
+.filter-col {
+  margin: 0em;
+  padding: 0em;
+}
+
+.filter-img {
+  margin: 0em auto;
+  height: 100%;
+  object-fit: cover;
+  padding: 0em;
+}
+
+.filter-caption {
+  color:white;
+  opacity: 0;
+  position: absolute; 
+  font-family: 'Nanum Myeongjo';
+  font-size: 2em;
+  top:90%; 
+  left:1%; 
+  width: 98%; 
+  text-align: center;
+}
+
+.show {
+  opacity: 1;
+}
+
+.filter-img-animate {
+  transform: scale(1.1)!important;
+  opacity:0.9 !important;
+}
+
+.container {
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 0em;
+  position: relative;
+  padding: 1%;
+  
+}
+
+.container a {
+  background-color: black;
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+}
+
+.gallery-img:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+.secondnav {
+  margin-top: 5em;
+}
+
+.navbar-toggler {
+  color: black;
+  font-family: 'Nanum Myeongjo';
+  font-weight: bolder;
+  text-transform: uppercase;
+  font-size: 1em;
+  margin: 4em 3em 0 1em;
+  padding-bottom: 1em;
+  outline: none !important;
+     box-shadow: none;
+}
+
+.navbar-collapse.show {
+    /* style goes here */
+    padding: 0;
+    display: inline-block;
+}
+
+.navbar-collapse.show ul{
+    /* style goes here */
+    margin-right: 3em;
+    padding: 0;
+    display: inline-block;
+}
+
+.navbar-collapse.show ul li{
+    /* style goes here */
+    float:left;
+}
+
+.navbar-collapse.show ul li a{
+    /* style goes here */
+    padding: 0;
+}
+
+.navbar-collapse.collapsing ul{
+    /* style goes here */
+    margin-right: 3em;
+    padding: 0;
+    display: inline-block;
+}
+
+.navbar-collapse.collapsing ul li{
+    /* style goes here */
+    float:left;
+}
+
+.navbar-collapse.collapsing ul li a{
+    /* style goes here */
+    padding: 0;
+}
+
+.landing-nav .navbar-toggler {
+  color: white;
+}
+
+/* Contact form */
+
+.my-modal {
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-header {
+  color: white;
+  font-family: "Nanum Myeongjo";
+  float: center;
+  border: none;
+}
+
+.modal-header h2 {
+  margin: 0 auto;
+}
+
+.modal-content {
+  background-color: transparent;
+  border: none;
+}
+
+.modal-body {
+  background-color: transparent;
+}
+
+#reused_form {
+  background-color: transparent;
+  font-family: "Nanum Myeongjo";
+  color: white;
+}
+
+.my-btn {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+}
+
+.my-btn:hover {
+  background-color: white;
+  color: black;
+}
+
+.row {
+  opacity: 1;
+  transition: 2s transform, 3s opacity;
+  transform: translate(0,0);
+}
+
+.row.fade-out{
+  opacity: 0;
+  transform: translate(0, 50em);
+}
+
+.fotorama__thumb-border {
+  border-color: white !important;
+}
+
+/* Footer */
+
+.footer {
+  flex-shrink: 0;
+  text-align: center;
+  color: #151515;
+  position: bottom;
+}
