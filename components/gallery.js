@@ -30,20 +30,16 @@ const photos = [
     height: 2
   },
   {
-    src: "https://source.unsplash.com/zh7GEuORbUw/600x799",
+    src: "/static/photography/underwater-1.jpg",
     width: 3,
     height: 4
   },
   {
-    src: "https://source.unsplash.com/PpOHJezOalU/800x599",
-    width: 4,
-    height: 3
-  },
-  {
-    src: "https://source.unsplash.com/I1ASdgphUH4/800x599",
-    width: 4,
-    height: 3
+    src: "/static/photography/higher-1.jpg",
+    width: 3,
+    height: 4
   }
+
 ];
 
 const galleryStyle = {

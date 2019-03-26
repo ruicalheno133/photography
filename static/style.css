@@ -245,10 +245,11 @@ nav {
   font-family: 'Nanum Myeongj';
   margin: 1em auto;
   padding: 0em 4em 0em 4em ;
+  color: black;
 }
 
 .info p {
-  text-align: left;
+  text-align: center;
 }
 
 .insta i{

@@ -6,6 +6,9 @@ export default function About() {
   return (
     <Layout>
         <div className="info">
+          
+          <p>Under construction.</p>
+
         </div>
 
     </Layout>
