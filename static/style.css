@@ -4,6 +4,10 @@
 @import url('https://fonts.googleapis.com/css?family=Alike');
 @import url('https://fonts.googleapis.com/css?family=Play');
 
+
+node_modules/react-image-gallery/styles/scss/image-gallery-no-icon.scss
+node_modules/react-image-gallery/styles/css/image-gallery-no-icon.css
+
 /* Geral */
 
 ::-webkit-scrollbar {
@@ -17,6 +21,7 @@ html, body {
   height: 100%;
   background-color: #f9f8fd;
   color: white;
+  font-family: 'Nanum Myeongjo';
 }
 
 body {
@@ -102,6 +107,16 @@ nav {
   opacity: 0.5;
 }
 
+.col-link {
+  color: #151515;
+  text-decoration: none;
+  font-family: 'Nanum Myeongjo';
+  font-weight: bolder;
+  text-transform: uppercase;
+  opacity: 0.3;
+  margin: 1em;
+}
+
 .nav-link::after {
   content: '';
   display: table;
@@ -112,6 +127,7 @@ nav {
   color: transparent;
   opacity: 0;
 }
+
 
 .landing-nav .nav-link::after {
   content: '';
@@ -142,6 +158,19 @@ nav {
   width: 90%;
   opacity: 1;
   transition: all ease-out 500ms;
+}
+
+.col-link:hover:after {
+  width: 90%;
+  opacity: 1;
+  transition: all ease-out 500ms;
+}
+
+.col-link:hover {
+  color: #151515;
+  text-decoration: none;
+  opacity: 1;
+  transition: all ease-out 600ms;
 }
 
 .nav-link:hover {

@@ -3,50 +3,7 @@ import { render } from "react-dom";
 import Gallery from "react-photo-gallery";
 import Lightbox from "react-images";
 
-const photos = [
-  {
-    src: "/static/photography/hats.jpg",
-    width: 4,
-    height: 3
-  },
-  {
-    src: "/static/photography/tate-1.jpg",
-    width: 4,
-    height: 3
-  },
-  {
-    src: "/static/photography/shard-1.jpg",
-    width: 3,
-    height: 4
-  },
-  {
-    src: "/static/photography/metro-1.jpg",
-    width: 2,
-    height: 3
-  },
-  {
-    src: "/static/photography/picadilly-1.jpg",
-    width: 3,
-    height: 2
-  },
-  {
-    src: "/static/photography/underwater-1.jpg",
-    width: 3,
-    height: 4
-  },
-  {
-    src: "/static/photography/higher-1.jpg",
-    width: 3,
-    height: 4
-  }
 
-];
-
-const galleryStyle = {
-    margin: '0 auto',
-    marginTop: 50,
-    width: '70%'
-}
 
 class PhotoGallery extends React.Component {
 
@@ -91,9 +48,12 @@ class PhotoGallery extends React.Component {
 
     render() {
         return (
-            <div style={galleryStyle}>
-                <Gallery photos={photos} onClick={this.openLightbox} />
-                <Lightbox images={photos}
+            <div style={this.props.galleryStyle}>
+                <Gallery photos={this.props.photos} 
+                         onClick={this.openLightbox} 
+                         columns={this.props.columns} 
+                         margin={this.props.margin} />
+                <Lightbox images={this.props.photos}
                     onClose={this.closeLightbox}
                     onClickPrev={this.gotoPrevious}
                     onClickNext={this.gotoNext}
