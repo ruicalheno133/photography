@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import Gallery from "react-photo-gallery";
 import Lightbox from "react-images";
+import { Container, Row, Col } from 'react-bootstrap'
 
 const imgStyle = {
     maxHeight: '100%',
@@ -13,7 +14,14 @@ const imgStyle = {
     marginTop: 50,
     width: '100%',
     textAlign: 'center',
-    height: '100%'
+    height: '50vh'
+}
+
+const rowStyle = {
+  height: '100%',
+  justifyContent: 'center',
+  alignItems: 'center',
+  display: 'flex'
 }
 
 const buttons= {
@@ -43,6 +51,12 @@ const buttons= {
     height:'3vh'
   }
 
+  const btn = {
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex'
+  }
+
 class ImageCaroussel extends React.Component {
     
 
@@ -53,10 +67,21 @@ class ImageCaroussel extends React.Component {
         this.openLightbox = this.openLightbox.bind(this);
         this.gotoNext = this.gotoNext.bind(this);
         this.gotoPrevious = this.gotoPrevious.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentDidMount(){
+    }
 
+    handleScroll(event) {
+      console.log(event) 
+      switch( event.keyCode ) {
+        case ESCAPE_KEY:
+          console.log('ola');
+          break;
+      default: 
+          break;
+      }
     }
 
     openLightbox(event, obj) {
@@ -84,6 +109,8 @@ class ImageCaroussel extends React.Component {
           currentImage: this.state.currentImage + 1,
         });
     }
+  
+
 
     render() {
         let prevBtn; 
@@ -109,15 +136,25 @@ class ImageCaroussel extends React.Component {
           </button>
         }
 
-
         return (
+          
             <div style={galleryStyle}>
-                <img style={imgStyle} src={this.props.photos[this.state.currentImage].src} />
-                <div style={buttons}>
-                  
+              <Row style={rowStyle}>
+                <Col md={1} xs={2} style={btn}>
                 {prevBtn}
+                </Col>
+                <Col md={10} xs={8} style={rowStyle}>
+
+        <img key={this.state.currentImage} style={imgStyle} src={this.props.photos[this.state.currentImage].src} /> 
+
+                </Col>
+
+                <Col md={1} xs={2} style={btn}>
+
                 {nextBtn}
-                </div>
+                </Col>
+
+              </Row>
             </div>
         )
     }

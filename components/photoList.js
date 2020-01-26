@@ -5,36 +5,32 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import PhotoGallery from '../components/gallery.js';
 import ImageCaroussel from '../components/caroussel.js'
+import ImageList from '../components/list.js'
+import window from 'global'
 
 const galleryStyle = {
   margin: '0 auto',
   marginTop: 50,
-  width: '90%'
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'red '
 }
-
-
-  const imgContainer = {
-      marginBottom:'20vh'
-  }
-  
-  const imgStyle = {
-    width: '100%',
-  }
-
-  const infoStyle = {
-    margin: '0 auto',
-    marginTop: 70,
-  }
-
-  const buttons= {
-    margin: '0 auto',
-    width: '100%',
-    textAlign: 'right'
-  }
   
   const titleStyle = {
     color: 'black',
-    marginBottom: '1em'
+    marginBottom: '1em',
+    padding: 0,
+    textAlign: 'center',
+    marginTop: '1vh'
+  }
+
+  const link = {
+    margin: 'auto',
+    padding: 0,
+    height:'100%',
+    color: 'black',
+    textDecoration: 'none',
+    backgroundColor: 'transparent',
   }
 
   const buttonStyle = {
@@ -45,7 +41,7 @@ const galleryStyle = {
 
   const buttonImgStyle = {
     width: '3vh',
-    height:'3vh'
+    height:'3vh',
   }
 
   const dontScroll = {
@@ -68,6 +64,7 @@ class PhotoList extends React.Component {
         }
         this._handleNextPress = this._handleNextPress.bind(this)
         this._handlePrevPress = this._handlePrevPress.bind(this)
+        this.mobileCheck = this.mobileCheck.bind(this)
     }
 
     _handleNextPress(){
@@ -89,33 +86,24 @@ class PhotoList extends React.Component {
 
     }
 
+    mobileCheck() {
+      return (typeof window.orientation !== "undefined");
+    };
+
     render() {
+
+        var display = <ImageCaroussel galleryStyle={galleryStyle} photos={this.props.photos} />
+
+        if (this.mobileCheck()) {
+          var display = <ImageList galleryStyle={galleryStyle} photos={this.props.photos} />
+        }
+
         return (
-            <Container>
-            <Row>
-              <Col sm={4} style={dontScroll}>
-                  <div style={infoStyle}>
-                    <h1 style={titleStyle}>{this.props.title}</h1>
-                    <p style={titleStyle}>{this.props.description}</p>
-                    </div>
-              </Col>
-                <Col sm={8} style={dontScroll}>
-                <ImageCaroussel galleryStyle={galleryStyle} photos={this.props.photos} />
-                  {/*<PhotoGallery photos={this.props.photos} 
-                                columns={1} margin={30} 
-                  galleryStyle={galleryStyle}/>*/}
-                </Col>
-                </Row>
-                {/* 
-                <div style={buttons}>
-                <button style={buttonStyle} onClick={this._handlePrevPress}>
-                <img style={buttonImgStyle} src={"/static/arrow_left.png"}/>
-                  </button>
-                  <button style={buttonStyle} onClick={this._handleNextPress}>
-                  <img style={buttonImgStyle} src={"/static/arrow_right.png"}/>
-                  </button>
-                </div>
-                */}
+            <Container style={{height:'100%'}}>
+                    <h3 style={titleStyle}> <a style={link} href="/collections"> Collections </a> → {this.props.title} </h3>
+                    {//<p style={titleStyle}>{this.props.description}</p>
+                    }
+                    {display}
             </Container>
         )
     }

@@ -4,7 +4,9 @@ import Head from 'next/head';
 
 const layoutStyle = {
   margin: 0,
-  padding: 0
+  padding: 0,
+  height: '100%',
+  width: '100%'
 }
 
 const Layout = props => (
@@ -21,7 +23,9 @@ const Layout = props => (
         </Head>
     <Header />
     {props.children}
-    <Footer />
+    {props.renderFooter && 
+        <Footer />
+    }
   </div>
 )
 

@@ -1,16 +1,19 @@
 // pages/index.js
 import Layout from '../components/layout.js'
 import PhotoGallery from '../components/gallery.js';
+import Home from '../components/home.js';
+import { Container, Row, Col } from 'react-bootstrap'
 
 const galleryStyle = {
   margin: '0 auto',
   marginTop: 50,
-  width: '70%'
+  width: '80%',
 }
+
 
 const photos = [
   {
-    src: "/static/photography/hats.jpg",
+    src: "/static/photography/london/bike-1.jpg",
     width: 4,
     height: 3
   },
@@ -25,7 +28,7 @@ const photos = [
     height: 3
   },
   {
-    src: "/static/photography/midnight_basket-1.jpg",
+    src: "/static/photography/midnight-basket-1.jpg",
     width: 3,
     height: 4
   },
@@ -40,7 +43,7 @@ const photos = [
     height: 4
   },
   {
-    src: "/static/photography/higher-1.jpg",
+    src: "/static/photography/london/higher-1.jpg",
     width: 3,
     height: 4
   },
@@ -60,10 +63,14 @@ const photos = [
 
 export default function Index() {
   return (
-        <Layout>
+        <Layout renderFooter={true}>
+          
             <PhotoGallery photos={photos} 
                           columns={3} margin={5}
                           galleryStyle={galleryStyle} />
+          
+          {/*<Home photos={photos} />*/}
+
         </Layout>
   )
 }
