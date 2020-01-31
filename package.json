@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "http://ruicalheno133.github.io/photography",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "next",
+    "deploy": "next build && next export -o docs",
     "build": "next build",
     "start": "next start -p $PORT",
     "heroku-postbuild": "npm run build"
