@@ -8,7 +8,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 const imgStyle = {
   width: '100%',
   marginBottom: '3em',
-
+  mixBlendMode: 'lighten'
 }
 
 const justifyLeft = {
@@ -18,6 +18,18 @@ const justifyLeft = {
 
 const refStyle = {
   backgroundColor: 'transparent'
+}
+
+const centerSquare = {
+  width: '100%',
+  height: '50vmin',
+  whiteSpace: 'pre-wrap'
+}
+
+const infoText = {
+  overflowWrap: 'break-word',
+  fontSize: '4em',
+  textAlign: 'center'
 }
 
 export default function About() {
@@ -72,7 +84,7 @@ export default function About() {
               <Row>
                 <Col md={5} xs={12}>
                   <a href="/photo" style={refStyle}>
-                <img style={imgStyle} src="/static/photography/me.jpg" />
+                  <img style={imgStyle} src="/static/photography/me.jpg" />
                 </a>
                 </Col>
                 <Col md={1} xs={0}>
@@ -94,8 +106,8 @@ export default function About() {
                 
                 </Col>
               </Row>
-            </Container>
-        </div>
+              </Container>
+              </div>
         </CSSTransition>
 
     </Layout>

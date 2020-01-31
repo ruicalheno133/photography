@@ -837,3 +837,14 @@ animation: appear 5s ease;
   }
 }
 
+.infoSpan {
+  opacity: 0.3;
+}
+
+.infoSpan.film:hover{
+  opacity: 1;
+}
+
+.infoSpan.film:hover ~ .film{
+  opacity: 1;
+}
