@@ -2,17 +2,17 @@
 // So, we write it in vanilla JS
 // (But you could use ES2015 features supported by your Node.js version)
 
-const debug = process.env.NODE_ENV !== "production";
+const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
+  assetPrefix: isProd ? '/photography/' : '',
   exportPathMap: function () {
     return {
       "/": { page: "/" },
+      "/collections": { page: "/collections" },
       "/about": { page: "/about" },
     }
   },
-  //assetPrefix: '',
-  assetPrefix: !debug ? '/photography/' : '',
   webpack: (config, { dev }) => {
     // Perform customizations to webpack config
     // console.log('webpack');

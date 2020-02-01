@@ -14,13 +14,13 @@ const Header = () => (
         <div className="collapse navbar-collapse" id="menu">
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                    <a className="nav-link" href="/">Photography</a>
+                    <a className="nav-link" href={process.env.BACKEND_URL + "/"}>Photography</a>
                 </li>   
                 <li className="nav-item">
-                    <a className="nav-link" href="/collections">Collections</a>
+                    <a className="nav-link" href={process.env.BACKEND_URL + "/collections"}>Collections</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="/about">About me</a>
+                    <a className="nav-link" href={process.env.BACKEND_URL + "/about"}>About me</a>
                 </li>
             </ul>
         </div>
