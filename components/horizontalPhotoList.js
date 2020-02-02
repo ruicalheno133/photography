@@ -90,13 +90,13 @@ class HorizontalPhotoList extends React.Component {
             if (img.orientation == 'V') {
               return (
                 <a onClick={() => {this.animate(index)}}>
-                  <img style={imgV} className={this.state.animate[index]} src={img.src} />
+                  <img style={imgV} className={this.state.animate[index]} src={process.env.BACKEND_URL + img.src} />
                 </a>
               )
             } else {
               return (
                 <a onClick={() => {this.animate(index)}}>
-                  <img style={imgH} className={this.state.animate[index]} src={img.src} />
+                  <img style={imgH} className={this.state.animate[index]} src={process.env.BACKEND_URL + img.src} />
                 </a>
               )
             }

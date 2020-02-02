@@ -216,7 +216,7 @@ class Collections extends React.Component {
                   
             <a key={0} className="col-link" onClick={async ()=> {await this.setState({show: true}); window.scrollTo({left: window.innerWidth, behavior: 'smooth'})}}>
                 <div className="imgContainer">
-                <img  style={imgStyle} className="img" src="/static/photography/underwater-1.jpg" />
+                <img  style={imgStyle} className="img" src={process.env.BACKEND_URL + "/static/photography/underwater-1.jpg"} />
                 </div>
                 <h1 style={titleStyle} className="text"> London </h1>
             </a>
@@ -234,7 +234,7 @@ class Collections extends React.Component {
                   
             <a key={0} className="col-link" onClick={async ()=> {await this.setState({show: true}); window.scrollTo({left: window.innerWidth, behavior: 'smooth'})}}>
                 <div className="imgContainer">
-                    <img style={imgStyle} className="img" src="/static/photography/portraiture/sara-3.jpg" />
+                    <img style={imgStyle} className="img" src={process.env.BACKEND_URL + "/static/photography/portraiture/sara-3.jpg"} />
                 </div>
                 <h1 style={titleStyle} className="text">
                      <span className="p" >P</span> 

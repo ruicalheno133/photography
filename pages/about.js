@@ -84,7 +84,7 @@ export default function About() {
               <Row>
                 <Col md={5} xs={12}>
                   <a href="/photo" style={refStyle}>
-                  <img style={imgStyle} src="/static/photography/me.jpg" />
+                  <img style={imgStyle} src={process.env.BACKEND_URL + "/static/photography/me.jpg"} />
                 </a>
                 </Col>
                 <Col md={1} xs={0}>
