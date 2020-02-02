@@ -94,7 +94,7 @@ export default function About() {
                 I am an enthusiast photographer based in Braga, Portugal. 
                 </p>
                 <p style={justifyLeft}>
-                  I balance between digital and film photography roaming the world with my Olympus OMD-EM10 II and my Minolta X700.
+                  I balance between digital and film photography with my Olympus OMD-EM10 II and my Minolta X700.
                 </p>
                 <p style={justifyLeft}>
                   Currently beginning my photography journey, I am yet to discover my own style and signature, so on the meantimes I just 
