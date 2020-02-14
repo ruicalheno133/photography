@@ -43548,7 +43548,6 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 var imgStyle = {
   width: '100%',
-  marginBottom: '3em',
   mixBlendMode: 'lighten'
 };
 var justifyLeft = {
@@ -43565,7 +43564,7 @@ function About() {
     renderFooter: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 27
+      lineNumber: 26
     },
     __self: this
   }, __jsx(react_transition_group__WEBPACK_IMPORTED_MODULE_4__["CSSTransition"], {
@@ -43576,7 +43575,7 @@ function About() {
     appear: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 63
+      lineNumber: 27
     },
     __self: this
   }, __jsx("div", {
@@ -43586,19 +43585,19 @@ function About() {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 71
+      lineNumber: 35
     },
     __self: this
   }, __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Container"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 73
+      lineNumber: 37
     },
     __self: this
   }, __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 74
+      lineNumber: 38
     },
     __self: this
   }, __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
@@ -43606,14 +43605,14 @@ function About() {
     xs: 12,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 75
+      lineNumber: 39
     },
     __self: this
   }, __jsx("div", {
     style: refStyle,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 76
+      lineNumber: 40
     },
     __self: this
   }, __jsx("img", {
@@ -43621,7 +43620,7 @@ function About() {
     src: process.env.BACKEND_URL + "/static/photography/me.jpg",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 77
+      lineNumber: 41
     },
     __self: this
   }))), __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
@@ -43629,7 +43628,7 @@ function About() {
     xs: 0,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 80
+      lineNumber: 44
     },
     __self: this
   }), __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
@@ -43637,7 +43636,7 @@ function About() {
     xs: 12,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 82
+      lineNumber: 46
     },
     __self: this
   }, __jsx("p", {
@@ -43645,7 +43644,7 @@ function About() {
     className: "info",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83
+      lineNumber: 47
     },
     __self: this
   }, "I am an enthusiast photographer based in Braga, Portugal."), __jsx("p", {
@@ -43653,7 +43652,7 @@ function About() {
     className: "info",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 86
+      lineNumber: 50
     },
     __self: this
   }, "I balance between digital and film photography with my Olympus OMD-EM10 II and my Minolta X700."), __jsx("p", {
@@ -43661,7 +43660,7 @@ function About() {
     className: "info",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 89
+      lineNumber: 53
     },
     __self: this
   }, "Currently beginning my photography journey, I am yet to discover my own style and signature, so on the meantimes I just photograph what I mind."), __jsx("p", {
@@ -43669,7 +43668,7 @@ function About() {
     className: "info",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 93
+      lineNumber: 57
     },
     __self: this
   }, "Feel free to contact if you have some project in mind.")))))));

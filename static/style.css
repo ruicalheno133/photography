@@ -264,7 +264,8 @@ nav {
 
 .info {
   font-family: 'Nanum Myeongj';
-  margin: 1em auto;
+  margin: 0;
+  margin-top: 1em;
   padding: 0em 4em 0em 4em ;
   color: black;
 }
