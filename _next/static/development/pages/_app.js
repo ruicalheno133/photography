@@ -17624,6 +17624,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _jsxFileName = "/Users/ruipedro/Desktop/projetos/WebfolioV2/pages/_app.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement;
 
 
 
@@ -17645,13 +17646,13 @@ function (_App) {
       var _this$props = this.props,
           Component = _this$props.Component,
           pageProps = _this$props.pageProps;
-      return react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+      return __jsx("div", {
         __source: {
           fileName: _jsxFileName,
           lineNumber: 19
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(nextjs_morph_page__WEBPACK_IMPORTED_MODULE_10___default.a, {
+      }, __jsx(nextjs_morph_page__WEBPACK_IMPORTED_MODULE_10___default.a, {
         timeout: 5000,
         classNames: "morph",
         __source: {
@@ -17659,7 +17660,7 @@ function (_App) {
           lineNumber: 20
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Component, Object(_babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__["default"])({}, pageProps, {
+      }, __jsx(Component, Object(_babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__["default"])({}, pageProps, {
         __source: {
           fileName: _jsxFileName,
           lineNumber: 21

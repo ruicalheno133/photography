@@ -7974,6 +7974,201 @@ module.exports = function shimAssign() {
 
 /***/ }),
 
+/***/ "../../../../../usr/local/lib/node_modules/next/node_modules/process/browser.js":
+/*!************************************************************************!*\
+  !*** /usr/local/lib/node_modules/next/node_modules/process/browser.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+
 /***/ "../../../../../usr/local/lib/node_modules/next/node_modules/prop-types-exact/build/helpers/isPlainObject.js":
 /*!*****************************************************************************************************!*\
   !*** /usr/local/lib/node_modules/next/node_modules/prop-types-exact/build/helpers/isPlainObject.js ***!
@@ -13499,6 +13694,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _jsxFileName = "/Users/ruipedro/Desktop/projetos/WebfolioV2/components/caroussel.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement;
 
 
 
@@ -13626,7 +13822,7 @@ function (_React$Component) {
       var nextBtn;
 
       if (this.state.currentImage != 0) {
-        prevBtn = react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("button", {
+        prevBtn = __jsx("button", {
           style: buttonStyle,
           onClick: this.gotoPrevious,
           __source: {
@@ -13634,7 +13830,7 @@ function (_React$Component) {
             lineNumber: 120
           },
           __self: this
-        }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("img", {
+        }, __jsx("img", {
           style: buttonImgStyle,
           src: "/static/arrow_left.png",
           __source: {
@@ -13644,7 +13840,7 @@ function (_React$Component) {
           __self: this
         }));
       } else {
-        prevBtn = react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("button", {
+        prevBtn = __jsx("button", {
           style: buttonStyleDisabled,
           onClick: this.gotoPrevious,
           disabled: true,
@@ -13653,7 +13849,7 @@ function (_React$Component) {
             lineNumber: 124
           },
           __self: this
-        }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("img", {
+        }, __jsx("img", {
           style: buttonImgStyle,
           src: "/static/arrow_left.png",
           __source: {
@@ -13665,7 +13861,7 @@ function (_React$Component) {
       }
 
       if (this.state.currentImage != this.props.photos.length - 1) {
-        nextBtn = react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("button", {
+        nextBtn = __jsx("button", {
           style: buttonStyle,
           onClick: this.gotoNext,
           __source: {
@@ -13673,7 +13869,7 @@ function (_React$Component) {
             lineNumber: 130
           },
           __self: this
-        }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("img", {
+        }, __jsx("img", {
           style: buttonImgStyle,
           src: "/static/arrow_right.png",
           __source: {
@@ -13683,7 +13879,7 @@ function (_React$Component) {
           __self: this
         }));
       } else {
-        nextBtn = react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("button", {
+        nextBtn = __jsx("button", {
           style: buttonStyleDisabled,
           onClick: this.gotoNext,
           disabled: true,
@@ -13692,7 +13888,7 @@ function (_React$Component) {
             lineNumber: 134
           },
           __self: this
-        }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("img", {
+        }, __jsx("img", {
           style: buttonImgStyle,
           src: "/static/arrow_right.png",
           __source: {
@@ -13703,21 +13899,21 @@ function (_React$Component) {
         }));
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
+      return __jsx("div", {
         style: galleryStyle,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 141
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["Row"], {
+      }, __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["Row"], {
         style: rowStyle,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 142
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["Col"], {
+      }, __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["Col"], {
         md: 1,
         xs: 2,
         style: btn,
@@ -13726,7 +13922,7 @@ function (_React$Component) {
           lineNumber: 143
         },
         __self: this
-      }, prevBtn), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["Col"], {
+      }, prevBtn), __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["Col"], {
         md: 10,
         xs: 8,
         style: rowStyle,
@@ -13735,7 +13931,7 @@ function (_React$Component) {
           lineNumber: 146
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("img", {
+      }, __jsx("img", {
         key: this.state.currentImage,
         style: imgStyle,
         src: this.props.photos[this.state.currentImage].src,
@@ -13744,7 +13940,7 @@ function (_React$Component) {
           lineNumber: 148
         },
         __self: this
-      })), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["Col"], {
+      })), __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["Col"], {
         md: 1,
         xs: 2,
         style: btn,
@@ -13788,6 +13984,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _jsxFileName = "/Users/ruipedro/Desktop/projetos/WebfolioV2/components/footer.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement;
 
 
 
@@ -13805,7 +14002,7 @@ function (_React$Component) {
   Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Footer, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
+      return __jsx("div", {
         className: "contacts footer",
         style: footerStyle,
         __source: {
@@ -13813,7 +14010,7 @@ function (_React$Component) {
           lineNumber: 7
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
+      }, __jsx("a", {
         className: "insta",
         target: "_blank",
         href: "https://www.instagram.com/ruicalheno133/",
@@ -13822,14 +14019,14 @@ function (_React$Component) {
           lineNumber: 8
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("i", {
+      }, __jsx("i", {
         className: "fab fa-instagram",
         __source: {
           fileName: _jsxFileName,
           lineNumber: 8
         },
         __self: this
-      })), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
+      })), __jsx("a", {
         className: "px",
         target: "_blank",
         href: "https://500px.com/ruic66",
@@ -13838,7 +14035,7 @@ function (_React$Component) {
           lineNumber: 9
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("i", {
+      }, __jsx("i", {
         className: "fab fa-500px",
         __source: {
           fileName: _jsxFileName,
@@ -13888,6 +14085,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _jsxFileName = "/Users/ruipedro/Desktop/projetos/WebfolioV2/components/gallery.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement;
 
 
 
@@ -13951,14 +14149,14 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
+      return __jsx("div", {
         style: this.props.galleryStyle,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 51
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_photo_gallery__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      }, __jsx(react_photo_gallery__WEBPACK_IMPORTED_MODULE_8__["default"], {
         photos: this.props.photos,
         onClick: this.openLightbox,
         columns: this.props.columns,
@@ -13968,7 +14166,7 @@ function (_React$Component) {
           lineNumber: 52
         },
         __self: this
-      }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_images__WEBPACK_IMPORTED_MODULE_9___default.a, {
+      }), __jsx(react_images__WEBPACK_IMPORTED_MODULE_9___default.a, {
         images: this.props.photos,
         onClose: this.closeLightbox,
         onClickPrev: this.gotoPrevious,
@@ -14000,41 +14198,42 @@ function (_React$Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/link */ "../../../../../usr/local/lib/node_modules/next/link.js");
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 var _jsxFileName = "/Users/ruipedro/Desktop/projetos/WebfolioV2/components/header.js";
 
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
 var Header = function Header() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+  return __jsx("nav", {
     className: "navbar main-nav navbar-expand-md fixed-top",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 5
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, __jsx("span", {
     className: "navbar-text",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 7
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "/",
+  }, __jsx("a", {
+    href: process.env.BACKEND_URL + "/",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 7
     },
     __self: this
-  }, "Rui Calheno")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, "Rui Calheno")), __jsx("button", {
     type: "button",
-    className: "btn btn-default btn-sm navbar-toggler ",
+    className: "btn btn-default btn-sm navbar-toggler",
     "data-toggle": "collapse",
     "data-target": "#menu",
     __source: {
@@ -14042,7 +14241,7 @@ var Header = function Header() {
       lineNumber: 9
     },
     __self: this
-  }, "Menu"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Menu"), __jsx("div", {
     className: "collapse navbar-collapse",
     id: "menu",
     __source: {
@@ -14050,53 +14249,53 @@ var Header = function Header() {
       lineNumber: 14
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  }, __jsx("ul", {
     className: "navbar-nav ml-auto",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 15
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+  }, __jsx("li", {
     className: "nav-item",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 16
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, __jsx("a", {
     className: "nav-link",
-    href: "/",
+    href: process.env.BACKEND_URL + "/",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 17
     },
     __self: this
-  }, "Photography")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+  }, "Photography")), __jsx("li", {
     className: "nav-item",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 19
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, __jsx("a", {
     className: "nav-link",
-    href: "/collections",
+    href: process.env.BACKEND_URL + "/collections",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 20
     },
     __self: this
-  }, "Collections")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+  }, "Collections")), __jsx("li", {
     className: "nav-item",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 22
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, __jsx("a", {
     className: "nav-link",
-    href: "/about",
+    href: process.env.BACKEND_URL + "/about",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 23
@@ -14106,6 +14305,7 @@ var Header = function Header() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Header);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../usr/local/lib/node_modules/next/node_modules/process/browser.js */ "../../../../../usr/local/lib/node_modules/next/node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -14142,6 +14342,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _jsxFileName = "/Users/ruipedro/Desktop/projetos/WebfolioV2/components/home.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement;
 
 
 
@@ -14245,28 +14446,28 @@ function (_React$Component) {
       var photo1_src = this.props.photos[this.state.index].src;
       var photo2_src = this.props.photos[this.state.index2].src;
       var photo3_src = this.props.photos[this.state.index3].src;
-      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_9___default.a, {
+      return __jsx(react_bootstrap_Row__WEBPACK_IMPORTED_MODULE_9___default.a, {
         style: galleryStyle,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 112
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_10___default.a, {
+      }, __jsx(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_10___default.a, {
         xs: 4,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 113
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
+      }, __jsx("div", {
         style: square,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 114
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("img", {
+      }, __jsx("img", {
         style: img,
         src: photo1_src,
         __source: {
@@ -14274,21 +14475,21 @@ function (_React$Component) {
           lineNumber: 115
         },
         __self: this
-      }))), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_10___default.a, {
+      }))), __jsx(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_10___default.a, {
         xs: 4,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 118
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
+      }, __jsx("div", {
         style: square,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 119
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("img", {
+      }, __jsx("img", {
         style: img,
         src: photo2_src,
         __source: {
@@ -14296,21 +14497,21 @@ function (_React$Component) {
           lineNumber: 120
         },
         __self: this
-      }))), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_10___default.a, {
+      }))), __jsx(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_10___default.a, {
         xs: 4,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 123
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
+      }, __jsx("div", {
         style: square,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 124
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("img", {
+      }, __jsx("img", {
         style: img,
         src: photo3_src,
         __source: {
@@ -14338,7 +14539,7 @@ function (_React$Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header */ "./components/header.js");
 /* harmony import */ var _footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./footer */ "./components/footer.js");
@@ -14346,6 +14547,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_3__);
 var _jsxFileName = "/Users/ruipedro/Desktop/projetos/WebfolioV2/components/layout.js";
 
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
@@ -14357,34 +14559,34 @@ var layoutStyle = {
 };
 
 var Layout = function Layout(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return __jsx("div", {
     style: layoutStyle,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 13
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_head__WEBPACK_IMPORTED_MODULE_3___default.a, {
+  }, __jsx(next_head__WEBPACK_IMPORTED_MODULE_3___default.a, {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 14
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("title", {
+  }, __jsx("title", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 15
     },
     __self: this
-  }, "Rui Calheno"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
+  }, "Rui Calheno"), __jsx("link", {
     rel: "shortcut icon",
-    href: "/static/logo.ico",
+    href: process.env.BACKEND_URL + "/static/logo.ico",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 16
     },
     __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("script", {
+  }), __jsx("script", {
     src: "https://code.jquery.com/jquery-3.3.1.slim.min.js",
     integrity: "sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo",
     crossorigin: "anonymous",
@@ -14393,7 +14595,7 @@ var Layout = function Layout(props) {
       lineNumber: 17
     },
     __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
+  }), __jsx("link", {
     rel: "stylesheet",
     href: "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css",
     integrity: "sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO",
@@ -14403,7 +14605,7 @@ var Layout = function Layout(props) {
       lineNumber: 18
     },
     __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("script", {
+  }), __jsx("script", {
     src: "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js",
     integrity: "sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy",
     crossorigin: "anonymous",
@@ -14412,7 +14614,7 @@ var Layout = function Layout(props) {
       lineNumber: 19
     },
     __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
+  }), __jsx("link", {
     rel: "stylesheet",
     href: "https://use.fontawesome.com/releases/v5.6.1/css/all.css",
     integrity: "sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP",
@@ -14422,28 +14624,28 @@ var Layout = function Layout(props) {
       lineNumber: 20
     },
     __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
-    href: "/static/style.css",
+  }), __jsx("link", {
+    href: process.env.BACKEND_URL + "/static/style.css",
     rel: "stylesheet",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 21
     },
     __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("script", {
-    src: "/static/dynamic.js",
+  }), __jsx("script", {
+    src: process.env.BACKEND_URL + "/static/dynamic.js",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 22
     },
     __self: this
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  })), __jsx(_header__WEBPACK_IMPORTED_MODULE_1__["default"], {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 24
     },
     __self: this
-  }), props.children, props.renderFooter && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_footer__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }), props.children, props.renderFooter && __jsx(_footer__WEBPACK_IMPORTED_MODULE_2__["default"], {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 27
@@ -14453,6 +14655,7 @@ var Layout = function Layout(props) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Layout);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../usr/local/lib/node_modules/next/node_modules/process/browser.js */ "../../../../../usr/local/lib/node_modules/next/node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -19095,6 +19298,31 @@ if (true) {
 }
 
 module.exports = warning;
+
+/***/ }),
+
+/***/ "./node_modules/global/window.js":
+/*!***************************************!*\
+  !*** ./node_modules/global/window.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {var win;
+
+if (typeof window !== "undefined") {
+    win = window;
+} else if (typeof global !== "undefined") {
+    win = global;
+} else if (typeof self !== "undefined"){
+    win = self;
+} else {
+    win = {};
+}
+
+module.exports = win;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../usr/local/lib/node_modules/next/node_modules/webpack/buildin/global.js */ "../../../../../usr/local/lib/node_modules/next/node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -42615,82 +42843,89 @@ module.exports = warning;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Index; });
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Index; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_layout_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/layout.js */ "./components/layout.js");
 /* harmony import */ var _components_gallery_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/gallery.js */ "./components/gallery.js");
 /* harmony import */ var _components_home_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/home.js */ "./components/home.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+/* harmony import */ var global__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! global */ "./node_modules/global/window.js");
+/* harmony import */ var global__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(global__WEBPACK_IMPORTED_MODULE_5__);
 var _jsxFileName = "/Users/ruipedro/Desktop/projetos/WebfolioV2/pages/index.js";
 
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 // pages/index.js
+
 
 
 
 
 var galleryStyle = {
   margin: '0 auto',
-  marginTop: 50,
+  marginTop: '2vmin ',
   width: '80%'
 };
 var photos = [{
-  src: "/static/photography/london/bike-1.jpg",
+  src: process.env.BACKEND_URL + "/static/photography/london/bike-1.jpg",
   width: 4,
   height: 3
 }, {
-  src: "/static/photography/lightAndShadow/passing_by-1.jpg",
+  src: process.env.BACKEND_URL + "/static/photography/lightAndShadow/passing_by-1.jpg",
   width: 3,
   height: 4
 }, {
-  src: "/static/photography/tate-1.jpg",
+  src: process.env.BACKEND_URL + "/static/photography/tate-1.jpg",
   width: 4,
   height: 3
 }, {
-  src: "/static/photography/midnight-basket-1.jpg",
+  src: process.env.BACKEND_URL + "/static/photography/midnight-basket-1.jpg",
   width: 3,
   height: 4
 }, {
-  src: "/static/photography/lightAndShadow/rcv-1.jpg",
+  src: process.env.BACKEND_URL + "/static/photography/lightAndShadow/rcv-1.jpg",
   width: 3,
   height: 4
 }, {
-  src: "/static/photography/underwater-1.jpg",
+  src: process.env.BACKEND_URL + "/static/photography/underwater-1.jpg",
   width: 3,
   height: 4
 }, {
-  src: "/static/photography/london/higher-1.jpg",
+  src: process.env.BACKEND_URL + "/static/photography/london/higher-1.jpg",
   width: 3,
   height: 4
 }, {
-  src: "/static/photography/gliding-1.jpg",
+  src: process.env.BACKEND_URL + "/static/photography/gliding-1.jpg",
   width: 4,
   height: 3
 }, {
-  src: "/static/photography/shard-1.jpg",
+  src: process.env.BACKEND_URL + "/static/photography/shard-1.jpg",
   width: 3,
   height: 4
 }];
 function Index() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layout_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  var w = global__WEBPACK_IMPORTED_MODULE_5___default.a.innerWidth;
+  var columns = Math.floor(w / 650) + 1;
+  return __jsx(_components_layout_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
     renderFooter: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 66
+      lineNumber: 72
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_gallery_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, __jsx(_components_gallery_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
     photos: photos,
-    columns: 3,
+    columns: columns,
     margin: 5,
     galleryStyle: galleryStyle,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 68
+      lineNumber: 74
     },
     __self: this
   }));
 }
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../usr/local/lib/node_modules/next/node_modules/process/browser.js */ "../../../../../usr/local/lib/node_modules/next/node_modules/process/browser.js")))
 
 /***/ }),
 

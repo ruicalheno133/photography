@@ -25,36 +25,7 @@ html, body {
 }
 
 body {
-  padding-top: 7%;
-}
-
-@media screen and (max-width: 992px) {
-  body {
-    padding-top: 10%;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  body {
-    padding-top: 15%;
-  }
-
-  .navbar .navbar-text {
-    float: center;
-    font-family: 'Nanum Myeongjo';
-    font-size: 1.5em;
-    text-transform: capitalize;
-    color: #151515;
-    margin-left: 2em;
-    padding: 0;
-  }
-
-}
-
-@media screen and (max-width: 480px) {
-  body {
-    padding-top: 50%;
-  }
+  padding-top: 15vh;
 }
 
 /* Landing Page */
@@ -107,6 +78,7 @@ nav {
   margin-right: 2em;
   margin-top: 2em;
   margin-bottom: 2em;
+  font-size: calc(5px + 1vmax);
 }
 
 .navbar-nav .nav-link {
@@ -216,7 +188,7 @@ nav {
 .navbar .navbar-text {
   float: left;
   font-family: 'Nanum Myeongjo';
-  font-size: 1.5em;
+  font-size: calc(20px + 1vmax);
   text-transform: capitalize;
   color: #151515;
   margin-left: 2em;
@@ -228,15 +200,7 @@ nav {
   color: #151515;
 }
 
-.landing-nav .navbar-text {
-  float: left;
-  font-family: 'Nanum Myeongjo';
-  font-size: 1.5em;
-  text-transform: capitalize;
-  color: white;
-  margin: 2em 1.5em 0 2em;
-  padding: 0;
-}
+
 
 /* Second Navbar */
 /* Used for filtering */
@@ -402,28 +366,40 @@ nav {
   opacity: 0.9;
 }
 
-.secondnav {
-  margin-top: 5em;
-}
-
 .navbar-toggler {
   color: black;
   font-family: 'Nanum Myeongjo';
   font-weight: bolder;
   text-transform: uppercase;
   font-size: 1em;
-  float:right;
-  widows: 100%;
-  display: block;
   outline: none !important;
   box-shadow: none;
+  display: block;
+  width: 100%;
 }
+
 
 .navbar-collapse.show {
     /* style goes here */
     text-align: center;
-    margin-top: 2em;
-    margin-bottom: 2em;
+    height: 100vh;
+    z-index: 10000;
+}
+
+.navbar-collapse.collapsing {
+  /* style goes here */
+  text-align: center;
+  height: 100vh;
+  z-index: 10000;
+}
+
+.navbar-collapse.collapsing ul{
+  /* style goes here */
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
+  height: 100vh;
+  z-index: 10000;
 }
 
 .navbar-collapse.show ul{
@@ -433,31 +409,7 @@ nav {
     margin: 0 auto;
 }
 
-.navbar-collapse.show ul li{
-    /* style goes here */
-}
 
-.navbar-collapse.show ul li a{
-    /* style goes here */
-    padding: 0;
-}
-
-.navbar-collapse.collapsing ul{
-    /* style goes here */
-    margin-right: 3em;
-    padding: 0;
-    display: inline-block;
-}
-
-.navbar-collapse.collapsing ul li{
-    /* style goes here */
-    float:left;
-}
-
-.navbar-collapse.collapsing ul li a{
-    /* style goes here */
-    padding: 0;
-}
 
 .landing-nav .navbar-toggler {
   color: white;
@@ -847,4 +799,49 @@ animation: appear 5s ease;
 
 .infoSpan.film:hover ~ .film{
   opacity: 1;
+}
+
+@media screen and (max-width: 800px) {
+
+
+  .navbar .navbar-text {
+    font-family: 'Nanum Myeongjo';
+    text-transform: capitalize;
+    color: #151515;
+    padding: 0;
+    margin-left: 0em !important;
+    width: 100vw;
+    text-align: center;
+  }
+
+  .imgContainer {
+    height: 70vmin !important;
+    width: calc(70vmin * (3/4)); 
+    overflow:hidden;
+    position: absolute;
+    top: 10vh !important;
+    right: calc((100vw - (70vmin * (3/4))) /2 ) !important; 
+  }
+
+  .img {
+    height: 70vmin !important;
+  }
+
+  .col-link .text {
+    font-size: 5vmin !important;
+    top: 6vmin !important;
+    left: 0 !important;
+    width: 100vw;
+    text-align: center;
+    margin: 0 !important;
+  }
+
+  .sideScroller {
+    top: 10vh !important;
+  }
+
+  .collectionPhoto {
+    height: 70vmin !important;
+  }
+
 }
